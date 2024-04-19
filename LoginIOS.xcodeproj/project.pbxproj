@@ -15,7 +15,7 @@
 		6CB8E3622BD0FE5200619967 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 6CB8E3612BD0FE5200619967 /* Base */; };
 		6CB8E3642BD0FE5300619967 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CB8E3632BD0FE5300619967 /* Assets.xcassets */; };
 		6CB8E3672BD0FE5300619967 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 6CB8E3662BD0FE5300619967 /* Base */; };
-		6CB8E36F2BD1129700619967 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CB8E36E2BD1129700619967 /* GoogleService-Info.plist */; };
+		6CBBEFA62BD2797700FB96EA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CBBEFA52BD2797600FB96EA /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +28,7 @@
 		6CB8E3632BD0FE5300619967 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CB8E3662BD0FE5300619967 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CB8E3682BD0FE5300619967 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6CB8E36E2BD1129700619967 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6CBBEFA52BD2797600FB96EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		76C52928F74D40A381930621 /* Pods-LoginIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoginIOS.debug.xcconfig"; path = "Target Support Files/Pods-LoginIOS/Pods-LoginIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		8198A94ED8E4D2C5E041E7B5 /* Pods_LoginIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoginIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A04BA64A41EE9C211DE79C /* Pods-LoginIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoginIOS.release.xcconfig"; path = "Target Support Files/Pods-LoginIOS/Pods-LoginIOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 		6CB8E34E2BD0FE5200619967 = {
 			isa = PBXGroup;
 			children = (
-				6CB8E36E2BD1129700619967 /* GoogleService-Info.plist */,
+				6CBBEFA52BD2797600FB96EA /* GoogleService-Info.plist */,
 				6CB8E3592BD0FE5200619967 /* LoginIOS */,
 				6CB8E3582BD0FE5200619967 /* Products */,
 				5D17A9B4C2C8B1EF309F9820 /* Pods */,
@@ -158,7 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CB8E3642BD0FE5300619967 /* Assets.xcassets in Resources */,
-				6CB8E36F2BD1129700619967 /* GoogleService-Info.plist in Resources */,
+				6CBBEFA62BD2797700FB96EA /* GoogleService-Info.plist in Resources */,
 				6CB8E3672BD0FE5300619967 /* Base in Resources */,
 				6CB8E3622BD0FE5200619967 /* Base in Resources */,
 			);

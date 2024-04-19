@@ -9,7 +9,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var wellcomeMessage: UILabel!
-    var userNameParam:String="PruebaUser"
+    
+    var userNameParam:String=UserDefaults.standard.string(forKey: "Email") ?? "DefaultUser"
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -7,6 +7,8 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseCore
+import GoogleSignIn
 
 class ViewController: UIViewController {
     @IBOutlet weak var userName: UITextField!
@@ -17,36 +19,35 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-// Prueba
+
     @IBAction func registerButton(_ sender: Any) {
+        
+        /* Validación con un enlace al Correo electrónico */
+        
+        // Parte para envio del enlace.
         let actionCodeSettings = ActionCodeSettings()
-        actionCodeSettings.url = URL(string: "https://www.example.com")
+        actionCodeSettings.url = URL(string: "https://loginios-e440d.firebaseapp.com")
         // The sign-in operation has to always be completed in the app.
         actionCodeSettings.handleCodeInApp = true
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
         actionCodeSettings.setAndroidPackageName("com.example.android",
                                                  installIfNotAvailable: false, minimumVersion: "12")
         
-        
-        
-        
-        
+        // Parte de verificación del registro.
         Auth.auth().sendSignInLink(toEmail: userName.text!,
-                                   actionCodeSettings: actionCodeSettings) { error in
-          // ...
-            if let error = error {
-                errorLog.text=(error.localizedDescription)
-              return
-            }
-            // The link was successfully sent. Inform the user.
-            // Save the email locally so you don't need to ask the user for it again
-            // if they open the link on the same device.
-            UserDefaults.standard.set(email, forKey: "Email")
-            errorLog.text="Check your email for link"
-            // ...
+                                   actionCodeSettings: actionCodeSettings) { [self] error in
+        // Si se ha producido un error visualizar.
+        if let error = error {
+            errorLog.text=("Error: " + error.localizedDescription)
+        return
         }
-        
-        
+        // The link was successfully sent. Inform the user.
+        // Save the email locally so you don't need to ask the user for it again
+        // if they open the link on the same device.
+        UserDefaults.standard.set(userName.text, forKey: "Email")
+        errorLog.text="Check your email for link"
+        // ...
+        }
         
         
         /*Registro con usuario y contraseña.
@@ -66,13 +67,25 @@ class ViewController: UIViewController {
           guard let strongSelf = self else { return }
           // ...
             if error == nil {
-                print ("Login Correcto")
+                self?.errorLog.text="Login Correcto"
                 self?.performSegue(withIdentifier: "goToHome", sender: self)
             } else {
                 print ("Error en Login: \(error?.localizedDescription.debugDescription)")
             }
         }
     }
+    
+    
+    
+    @IBAction func loginWithGoole(_ sender: Any) {
+        
+        let user=googleSignIn()
+        errorLog.text="Login con user: \(user?.profile?.email)"
+        
+
+    }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="goToHome" {
@@ -81,8 +94,45 @@ class ViewController: UIViewController {
         }
     }
     
-    func actionCodeSettings(){
+    func googleSignIn() -> GIDGoogleUser? {
         
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return nil
+        }
+        
+        var user:GIDGoogleUser?  = nil
+        
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
+            guard error == nil else {
+                self.errorLog.text=error?.localizedDescription
+                return
+            }
+            
+            user = result?.user
+            let idToken = user?.idToken?.tokenString ?? nil
+            if idToken == nil {
+                self.errorLog.text=error?.localizedDescription
+                return
+            }
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken!,
+                                                           accessToken: user!.accessToken.tokenString)
+            
+            Auth.auth().signIn(with: credential) { result, error in
+                if error == nil {
+                    self.errorLog.text="Login Correcto"
+                    UserDefaults.standard.set(user?.profile?.email, forKey: "Email")
+                    self.performSegue(withIdentifier: "goToHome", sender: self)
+                } else {
+                    print ("Error en Login: \(error?.localizedDescription.debugDescription)")
+                }
+            }
+        }
+        return user
     }
     
 }
