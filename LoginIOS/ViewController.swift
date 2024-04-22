@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var errorLog: UITextView!
+    @IBOutlet weak var saveSessionSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +23,22 @@ class ViewController: UIViewController {
 
     @IBAction func registerButton(_ sender: Any) {
         
+        //Registro con usuario y contraseña.
+        // Con esta opción no se verifica que el correo sea válido
+        Auth.auth().createUser(withEmail:userName.text!, password: password.text!) { authResult, error in
+           
+            if error == nil {
+                print ("Registro Correcto")
+            } else {
+                print ("Error en registro: \(String(describing: error?.localizedDescription.debugDescription))")
+            }
+        }
+      
+    }
+    
+    func loginWithMailValidation(){
         /* Validación con un enlace al Correo electrónico */
-        
+        // Incompleto falta completar
         // Parte para envio del enlace.
         let actionCodeSettings = ActionCodeSettings()
         actionCodeSettings.url = URL(string: "https://loginios-e440d.firebaseapp.com")
@@ -48,18 +63,6 @@ class ViewController: UIViewController {
         errorLog.text="Check your email for link"
         // ...
         }
-        
-        
-        /*Registro con usuario y contraseña.
-        Auth.auth().createUser(withEmail:userName.text!, password: password.text!) { authResult, error in
-           ...
-            if error == nil {
-                print ("Registro Correcto")
-            } else {
-                print ("Error en registro: \(String(describing: error?.localizedDescription.debugDescription))")
-            }
-        }
-         */
     }
     
     @IBAction func loginButton(_ sender: Any) {
@@ -70,17 +73,16 @@ class ViewController: UIViewController {
                 self?.errorLog.text="Login Correcto"
                 self?.performSegue(withIdentifier: "goToHome", sender: self)
             } else {
-                print ("Error en Login: \(error?.localizedDescription.debugDescription)")
+                print ("Error en Login: \(error?.localizedDescription.debugDescription ?? "Error desconocido") ")
             }
         }
     }
     
     
-    
     @IBAction func loginWithGoole(_ sender: Any) {
         
         let user=googleSignIn()
-        errorLog.text="Login con user: \(user?.profile?.email)"
+        errorLog.text="Login con user: \(user?.profile?.email ?? "Usuario no encontrado")"
         
 
     }
@@ -90,7 +92,9 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="goToHome" {
             let homeViewControler=segue.destination as! HomeViewController
-            homeViewControler.userNameParam=userName.text!
+            
+            // no es necesario parametro, se pasa por UserDefaults en saveLogin
+            // homeViewControler.userNameParam=userName.text!
         }
     }
     
@@ -125,14 +129,33 @@ class ViewController: UIViewController {
             Auth.auth().signIn(with: credential) { result, error in
                 if error == nil {
                     self.errorLog.text="Login Correcto"
-                    UserDefaults.standard.set(user?.profile?.email, forKey: "Email")
+                    let username = user?.profile?.email
+                    self.saveLogin(email: username!)
                     self.performSegue(withIdentifier: "goToHome", sender: self)
                 } else {
-                    print ("Error en Login: \(error?.localizedDescription.debugDescription)")
+                    let txtError="Error en Login: " + (error?.localizedDescription.debugDescription ?? "Error desconocido")
+                    print ("\(txtError)")
                 }
             }
         }
         return user
+    }
+    
+    
+    
+    
+    func saveLogin (email:String) {
+
+        if saveSessionSwitch.isOn {
+
+            UserDefaults.standard.set(email, forKey: "Email")
+
+        }
+
+        
+
+        UserDefaults.standard.set(true, forKey: "IsLogin")
+
     }
     
 }
