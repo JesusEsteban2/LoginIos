@@ -16,9 +16,23 @@ class ViewController: UIViewController {
     @IBOutlet weak var errorLog: UITextView!
     @IBOutlet weak var saveSessionSwitch: UISwitch!
     
+    var isLogin=false
+    let null:Bool?=nil
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        isLogin=UserDefaults.standard.bool(forKey: "IsLogin")
+        errorLog.text="El valor de Islogin es: \(isLogin)"
+        
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        UserDefaults.standard.set(false, forKey: "IsLogin")
     }
 
     @IBAction func registerButton(_ sender: Any) {
@@ -59,7 +73,7 @@ class ViewController: UIViewController {
         // The link was successfully sent. Inform the user.
         // Save the email locally so you don't need to ask the user for it again
         // if they open the link on the same device.
-        UserDefaults.standard.set(userName.text, forKey: "Email")
+        saveLogin(email: userName.text!)
         errorLog.text="Check your email for link"
         // ...
         }
@@ -67,10 +81,11 @@ class ViewController: UIViewController {
     
     @IBAction func loginButton(_ sender: Any) {
         Auth.auth().signIn(withEmail: userName.text!, password: password.text!) { [weak self] authResult, error in
-          guard let strongSelf = self else { return }
+            guard self != nil else { return }
           // ...
             if error == nil {
                 self?.errorLog.text="Login Correcto"
+                self?.saveLogin(email: self!.userName.text!)
                 self?.performSegue(withIdentifier: "goToHome", sender: self)
             } else {
                 print ("Error en Login: \(error?.localizedDescription.debugDescription ?? "Error desconocido") ")
@@ -98,11 +113,12 @@ class ViewController: UIViewController {
         }
     }
     
+    // Función para logarse con correo de Google.
     func googleSignIn() -> GIDGoogleUser? {
         
         guard let clientID = FirebaseApp.app()?.options.clientID else { return nil
         }
-        
+        // Create a blank google user for return purposes
         var user:GIDGoogleUser?  = nil
         
         // Create Google Sign In configuration object.
@@ -131,6 +147,7 @@ class ViewController: UIViewController {
                     self.errorLog.text="Login Correcto"
                     let username = user?.profile?.email
                     self.saveLogin(email: username!)
+                    print ("\(username)")
                     self.performSegue(withIdentifier: "goToHome", sender: self)
                 } else {
                     let txtError="Error en Login: " + (error?.localizedDescription.debugDescription ?? "Error desconocido")
@@ -140,20 +157,20 @@ class ViewController: UIViewController {
         }
         return user
     }
-    
-    
-    
+
     
     func saveLogin (email:String) {
-
+        
+        print ("\(email)")
+        
+        //If is marked, save user session
         if saveSessionSwitch.isOn {
 
             UserDefaults.standard.set(email, forKey: "Email")
 
         }
 
-        
-
+        // Save active sesion login to go the program.
         UserDefaults.standard.set(true, forKey: "IsLogin")
 
     }

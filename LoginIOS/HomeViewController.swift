@@ -10,11 +10,16 @@ import UIKit
 class HomeViewController: UIViewController {
     @IBOutlet weak var wellcomeMessage: UILabel!
     
-    var userNameParam = UserDefaults.standard.string(forKey: "Email") ?? "Anonimo"
+    var userNameParam = UserDefaults.standard.string(forKey: "Email")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        wellcomeMessage.text="Wellcome \(userNameParam)"
+        
+        if userNameParam == nil {
+            userNameParam="Anonimo"
+        }
+        
+        wellcomeMessage.text="Wellcome \(userNameParam!)"
     }
     
 
