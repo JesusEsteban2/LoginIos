@@ -2,35 +2,49 @@
 //  HomeViewController.swift
 //  LoginIOS
 //
-//  Created by Mañanas on 18/4/24.
+//  Created by Mañanas on 23/4/24.
 //
 
 import UIKit
 
 class HomeViewController: UIViewController {
-    @IBOutlet weak var wellcomeMessage: UILabel!
-    
-    var userNameParam = UserDefaults.standard.string(forKey: "Email")
+
+    var isLogin=false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
         
-        if userNameParam == nil {
-            userNameParam="Anonimo"
+        isLogin=UserDefaults.standard.bool(forKey: "IsLogin")
+        print ("El valor de Islogin es: \(isLogin)")
+        
+        if isLogin {
+            // Ir a appcontroler.
+        } else {
+            performSegue(withIdentifier: "goToLogin", sender: self)
         }
         
-        wellcomeMessage.text="Wellcome \(userNameParam!)"
+        //navBarr.rightBarButtonItem?.isEnabled
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        UserDefaults.standard.set(false, forKey: "IsLogin")
+    }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier=="goToLogin" {
+            let loginViewControler=segue.destination as! LoginViewController
+            
+        }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
+
 
 }

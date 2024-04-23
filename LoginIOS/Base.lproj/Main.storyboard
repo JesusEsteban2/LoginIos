@@ -9,10 +9,60 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="ptP-aC-PWt">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1f0-wu-2lR" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nBA-9d-CHb">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="eLQ-N0-53C" kind="relationship" relationship="rootViewController" id="8Ek-ev-q8M"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SDB-d1-pZs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-80" y="-678"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="2qB-TU-L8B">
+            <objects>
+                <viewController id="eLQ-N0-53C" customClass="HomeViewController" customModule="LoginIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aYi-i7-LN4">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pantalla Root" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffc-EB-gQa">
+                                <rect key="frame" x="38" y="283" width="308" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dpN-Qx-Fsg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="jW6-6q-5Qk">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="person.circle" catalog="system" id="JAf-Ri-SaH"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="goToLogin" id="45k-a0-8Fv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dwM-QB-OrF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="878.62595419847321" y="-678.16901408450713"/>
+        </scene>
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LoginIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="LoginIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -93,9 +143,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="zsb-5z-kWS"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="zsb-5z-kWS"/>
                     <connections>
                         <outlet property="errorLog" destination="636-AY-AI4" id="oeL-Fy-cSn"/>
+                        <outlet property="navBarr" destination="zsb-5z-kWS" id="kUB-Da-ztN"/>
                         <outlet property="password" destination="KSP-hz-yRT" id="ZGv-Go-Dzb"/>
                         <outlet property="saveSessionSwitch" destination="mGP-YZ-lRD" id="zPv-CZ-zco"/>
                         <outlet property="userName" destination="onw-56-Amn" id="upc-tF-M17"/>
@@ -104,12 +155,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="878.62595419847321" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="879" y="42"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Verify View Contoller-->
         <scene sceneID="0Fn-M7-LeE">
             <objects>
-                <viewController id="0Kf-ah-pat" customClass="HomeViewController" customModule="LoginIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0Kf-ah-pat" customClass="VerifyViewContoller" customModule="LoginIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="s0H-I9-76u">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -132,30 +183,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jas-He-QGb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1689.3129770992366" y="3.5211267605633805"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ptP-aC-PWt">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1f0-wu-2lR" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nBA-9d-CHb">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="8kV-Z5-qc6"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SDB-d1-pZs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-48.091603053435115" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="1804" y="42"/>
         </scene>
     </scenes>
     <resources>
         <image name="GoogleIcon" width="27" height="27"/>
         <image name="ImageFirebase" width="314" height="94"/>
+        <image name="person.circle" catalog="system" width="128" height="123"/>
         <namedColor name="Def">
             <color red="0.53700000047683716" green="0.79199999570846558" blue="0.97200000286102295" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
@@ -166,7 +200,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
