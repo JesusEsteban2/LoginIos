@@ -23,4 +23,7 @@ target 'LoginIOS' do
   # For example, to use Firebase Authentication and Cloud Firestore
   pod 'FirebaseFirestore'
 
+  # Add pod FirebaseStorage
+  pod 'FirebaseStorage'
+
 end

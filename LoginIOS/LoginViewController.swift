@@ -164,10 +164,12 @@ class LoginViewController: UIViewController {
         UserDefaults.standard.set(true, forKey: "IsLogin")
         
         // Si no es nulo, guarda el ususerId
-        var usId=Auth.auth().currentUser?.uid
+        let usId=Auth.auth().currentUser?.uid
+        let imgUser=Auth.auth().currentUser?.photoURL
         if usId != nil {
             UserDefaults.standard.set(usId, forKey:"IdUser")
-            print ("User Id= \(usId)")
+            UserDefaults.standard.set(imgUser, forKey:"ImageUser")
+            print ("User Id= \(usId!)")
         }
 
     }

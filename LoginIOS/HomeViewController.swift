@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
 
-    var isLogin=false
+    var isLogin=UserDefaults.standard.bool(forKey: "IsLogin")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,10 @@ class HomeViewController: UIViewController {
         UserDefaults.standard.set(false, forKey: "IsLogin")
     }
 
+    @IBAction func logOut(_ sender: Any) {
+        // Auth.auth().settings.
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

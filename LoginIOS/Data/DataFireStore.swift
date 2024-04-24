@@ -5,9 +5,14 @@
 //  Created by Mañanas on 23/4/24.
 //
 
-import Foundation
+import UIKit
 import FirebaseCore
+import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
+
+
+
 
 // Instanciar de Cloud Firestore
 // FirebaseApp.configure()
@@ -23,19 +28,22 @@ struct Usuario: Codable {
     var nombre:String
     var apellidos:String
     var imagenPerfil:String
+    
+    init(idUser:String){
+        usuario=idUser
+        nombre=""
+        apellidos=""
+        imagenPerfil=""
+    }
 }
 
 // Para crear o sobrescribir un solo documento, utilice los siguientes métodos set() específicos del idioma:
 //
-func saveData(doc:String) {
+func saveData(doc:String,user:Usuario) {
     
     Task{
         do {
-            try await db.collection(coleccion).document(doc).setData([
-                "name": "Los Angeles",
-                "state": "CA",
-                "country": "USA"
-            ])
+            try await db.collection(coleccion).document(doc).setData(from: user)
             print("Document successfully written!")
         } catch {
             print("Error writing document: \(error)")
@@ -44,24 +52,22 @@ func saveData(doc:String) {
     
 }
 
-func readData(doc:String) {
-
-    Task{
-        let docRef = db.collection(coleccion).document(doc)
-
-        do {
-          let document = try await docRef.getDocument()
-          if document.exists {
-            let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-            print("Document data: \(dataDescription)")
-          } else {
-            print("Document does not exist")
-          }
-        } catch {
-          print("Error getting document: \(error)")
-        }
-    }
+func readData(doc:String) async->Usuario? {
     
+    let docRef = db.collection(coleccion).document(doc)
+    var usuario:Usuario?=nil
+    do {
+        let document = try await docRef.getDocument()
+        if document.exists {
+            usuario = try document.data(as:Usuario.self)
+            print("Cargado data: \(usuario?.nombre)")
+        } else {
+            print("Document does not exist")
+        }
+    } catch {
+        print("Error getting document: \(error)")
+    }
+    return usuario
 }
 
 func delData(doc:String) {
@@ -77,6 +83,12 @@ func delData(doc:String) {
 }
 
 func subirArchivo(pathToImage:String){
+    
+    //Obtenga una referencia al servicio Cloud Storage mediante la aplicación Firebase predeterminada
+    let storage = Storage.storage()
+    // Get a non-default Cloud Storage bucket
+    // storage = Storage.storage(url:"gs://my-custom-bucket")
+    
     // Inicializción de referencias.
     // Create a root reference
     let storageRef = storage.reference()
