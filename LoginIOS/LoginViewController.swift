@@ -41,6 +41,8 @@ class LoginViewController: UIViewController {
            
             if error == nil {
                 print ("Registro Correcto")
+                print ("Usuario con id: \(Auth.auth().currentUser?.uid)")
+                self.performSegue(withIdentifier: "goToProfile", sender: self)
             } else {
                 print ("Error en registro: \(String(describing: error?.localizedDescription.debugDescription))")
             }
@@ -85,7 +87,7 @@ class LoginViewController: UIViewController {
             if error == nil {
                 self?.errorLog.text="Login Correcto"
                 self?.saveLogin(email: self!.userName.text!)
-                self?.performSegue(withIdentifier: "goToHome", sender: self)
+                self?.navigationController?.popViewController(animated: true)
             } else {
                 print ("Error en Login: \(error?.localizedDescription.debugDescription ?? "Error desconocido") ")
             }
@@ -137,7 +139,7 @@ class LoginViewController: UIViewController {
                     let username = user?.profile?.email
                     self.saveLogin(email: username!)
                     print ("\(username)")
-                    self.performSegue(withIdentifier: "goToHome", sender: self)
+                    self.navigationController?.popViewController(animated: true)
                 } else {
                     let txtError="Error en Login: " + (error?.localizedDescription.debugDescription ?? "Error desconocido")
                     print ("\(txtError)")
@@ -178,7 +180,7 @@ class LoginViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="goToHome" {
-            let homeViewControler=segue.destination as! VerifyViewContoller
+            let homeViewControler=segue.destination as! RegisterViewContoller
 
         }
     }

@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import FirebaseAuth
 
-class VerifyViewContoller: UIViewController {
+class RegisterViewContoller: UIViewController {
 
     @IBOutlet weak var nombreEdit: UITextField!
     @IBOutlet weak var apellidoEdit: UITextField!
@@ -19,17 +20,36 @@ class VerifyViewContoller: UIViewController {
     
     // Datos de login
     var userNameParam = UserDefaults.standard.string(forKey: "Email")
-    let userId:String=UserDefaults.standard.string(forKey: "IdUser")
+    var userId:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if userNameParam == nil {
-            userNameParam="Anonimo"
+        userId = Auth.auth().currentUser?.uid
+        
+        if userId != nil {
+            usuario = Usuario(idUser: userId!)
+            Task {
+                await usuario = readData(doc:userId!)
+                nombreEdit.text=usuario?.nombre
+                apellidoEdit.text=usuario?.apellidos
+                imagenEdit.text=usuario?.imagenPerfil
+                if (usuario!.imagenPerfil.isEmpty) {
+                    imagen.image=UIImage(systemName:"person.circle")
+                } else {
+                    imagen.loadImage(fromURL:usuario!.imagenPerfil)
+                }
+            }
+            
+            
+
+        } else {
+            exit(0)
         }
         
-        Task {
-            usuario = await readData(doc:userId)
+        
+        if userNameParam == nil {
+            userNameParam="Anonimo"
         }
         
         // Hacer imagen redonda
@@ -39,17 +59,10 @@ class VerifyViewContoller: UIViewController {
         imagen.layer.cornerRadius = imagen.frame.size.height/2
         imagen.clipsToBounds = true
         
-        
-        if userId != nil {
-            usuario = Usuario(idUser: userId!)
-            //var urlImage = UserDefaults.standard.string(forKey: "ImageUser")
-            // usuario.imagenPerfil=urlImage
-        } else{ return }
-        
-        // wellcomeMessage.text="Wellcome \(userNameParam!)"
     }
     @IBAction func savePerfil(_ sender: Any) {
         
+        usuario = Usuario(idUser: userId!)
         // Actualizar valores
         usuario?.nombre=nombreEdit.text!
         usuario?.apellidos=apellidoEdit.text!
@@ -58,6 +71,7 @@ class VerifyViewContoller: UIViewController {
         // Guardar usuario
         saveData(doc:userId!,user:usuario!)
         
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
 
