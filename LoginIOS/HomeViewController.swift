@@ -18,32 +18,11 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let urlString = "https://www.superherodb.com/pictures2/portraits/10/100/10060.jpg"
-            guard let url = URL(string: urlString) else {
-                // Manejar el caso de URL inválida
-                print("URL inválida: \(urlString)")
-                return
-            }
-            
-            // Utiliza una tarea asincrónica para cargar la imagen
-            Task {
-                do {
-                    let (data, _) = try await URLSession.shared.data(from: url)
-                    DispatchQueue.main.async {
-                        self.imageProfile.setBackgroundImage(UIImage(data: data), for: .normal, barMetrics: .default)
-                    }
-                } catch {
-                    // Manejar el error en la carga de la imagen
-                    print("Error al cargar la imagen: \(error)")
-                }
-            }
+        //navBarr.rightBarButtonItem?.isEnabled
         //imageLoad.loadImage(fromURL:"https://www.superherodb.com/pictures2/portraits/10/100/10060.jpg")
 
-        //Timer(timeInterval: 3, repeats: <#T##Bool#>, block: <#T##(Timer) -> Void#>)
-
-            
-        //imageProfile.image=imageLoad.image
-        //navBarr.rightBarButtonItem?.isEnabled
+        imageProfile.image=imageLoad.image
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

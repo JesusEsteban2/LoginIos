@@ -82,8 +82,8 @@ func delData(doc:String) {
     }
 }
 
-func subirArchivo(pathToImage:String){
-    
+func subirArchivo(image:UIImage, user:Usuario)async->String {
+    var urlString:String=""
     //Obtenga una referencia al servicio Cloud Storage mediante la aplicación Firebase predeterminada
     let storage = Storage.storage()
     // Get a non-default Cloud Storage bucket
@@ -94,39 +94,37 @@ func subirArchivo(pathToImage:String){
     let storageRef = storage.reference()
 
     // Create a reference to "mountains.jpg"
-    let mountainsRef = storageRef.child("mountains.jpg")
+    let route="\(user.usuario)/imageProfile.jpg"
+    let imageProfileRef = storageRef.child(route)
 
-    // Create a reference to 'images/mountains.jpg'
-    let mountainImagesRef = storageRef.child("images/mountains.jpg")
-
+    // Create a reference to 'mountains.jpg'
+    // let mountainImagesRef = storageRef.child("mountains.jpg")
     // While the file names are the same, the references point to different files
-    mountainsRef.name == mountainImagesRef.name            // true
-    mountainsRef.fullPath == mountainImagesRef.fullPath    // false
-    
-    
-    
+    // mountainsRef.name == mountainImagesRef.name            // true
+    // mountainsRef.fullPath == mountainImagesRef.fullPath    // false
     // File located on disk
-    let localFile = URL(string: pathToImage)!
-
+    // let localFile = URL(string: pathToImage)
     // Create a reference to the file you want to upload
-    let riversRef = storageRef.child("images/rivers.jpg")
+    // let riversRef = storageRef.child("images/rivers.jpg")
 
     // Upload the file to the path "images/rivers.jpg"
-    let uploadTask = riversRef.putFile(from: localFile, metadata: nil) { metadata, error in
-      guard let metadata = metadata else {
-        // Uh-oh, an error occurred!
-        return
-      }
-      // Metadata contains file metadata such as size, content-type.
-      let size = metadata.size
-      // You can also access to download URL after upload.
-      riversRef.downloadURL { (url, error) in
-        guard let downloadURL = url else {
-          // Uh-oh, an error occurred!
-          return
+    let uploadTask = imageProfileRef.putData( image.jpegData(compressionQuality: 0.7)!) { metadata, error in
+        guard let metadata = metadata else {
+            print ("Error subiendo la imagen")
+            return
         }
-      }
     }
+        // Metadata contains file metadata such as size, content-type.
+        //let size = metadata.size
+        // You can also access to download URL after upload
+        
+    do {try await urlString=imageProfileRef.downloadURL().absoluteString}
+    catch {
+        print ("error recuperando URL")
+    }
+
+    return urlString
 }
 
+    
 // https://firebase.google.com/docs/firestore/query-data/get-data?hl=es&authuser=0
