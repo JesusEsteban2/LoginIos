@@ -42,7 +42,11 @@
                         <centerItemGroups>
                             <barButtonItemGroup customizationDisposition="fixed" id="cmK-bZ-5eP">
                                 <barButtonItems>
-                                    <barButtonItem title="Item" id="Grj-xa-zNv"/>
+                                    <barButtonItem title="Item" id="Grj-xa-zNv" userLabel="Mensajes">
+                                        <connections>
+                                            <segue destination="BwK-OZ-2EO" kind="show" id="gFa-Dm-F9a"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem title="Logout" id="8R4-Oa-Hkx">
                                         <connections>
                                             <action selector="logOut:" destination="eLQ-N0-53C" id="x9k-mQ-MKj"/>
@@ -51,21 +55,94 @@
                                 </barButtonItems>
                             </barButtonItemGroup>
                         </centerItemGroups>
-                        <barButtonItem key="rightBarButtonItem" title="Profile" id="JAf-Ri-SaH">
-                            <connections>
-                                <segue destination="0Kf-ah-pat" kind="show" id="9pm-vL-iiq"/>
-                            </connections>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="OXw-8x-Na5" userLabel="Image Profile">
+                            <view key="customView" contentMode="scaleToFill" id="zUS-Z8-pIz">
+                                <rect key="frame" x="294.33333333333331" y="3" width="38" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ijT-Lz-pZU">
+                                        <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="OiM-5f-LZc" appends="YES" id="Roe-1c-af8"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="imageProfile" destination="JAf-Ri-SaH" id="znm-dv-ttD"/>
+                        <outlet property="imageProView" destination="ijT-Lz-pZU" id="N2L-CT-As2"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="goToLogin" id="45k-a0-8Fv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dwM-QB-OrF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="OiM-5f-LZc">
+                    <connections>
+                        <segue destination="0Kf-ah-pat" kind="show" id="8gs-61-9Gs"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="878.62595419847321" y="-678.16901408450713"/>
+        </scene>
+        <!--Chat View Controller-->
+        <scene sceneID="v3x-oQ-sed">
+            <objects>
+                <viewController id="BwK-OZ-2EO" customClass="ChatViewController" customModule="LoginIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="mt9-mo-L1B">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="2lg-7O-DSL">
+                                <rect key="frame" x="0.0" y="103" width="393" height="608"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="JFh-v9-Lq0">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JFh-v9-Lq0" id="zeW-8z-a27">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <view contentMode="scaleToFill" ambiguous="YES" id="2X7-mq-xjU" userLabel="Input View">
+                                <rect key="frame" x="0.0" y="709" width="393" height="94"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="En un lugar de la mancha" translatesAutoresizingMaskIntoConstraints="NO" id="9II-B3-iH8">
+                                        <rect key="frame" x="41" y="21" width="310" height="51"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="grl-ON-Jzp"/>
+                                        </constraints>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wRv-5s-alR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2lg-7O-DSL" firstAttribute="top" secondItem="wRv-5s-alR" secondAttribute="top" id="HC3-oe-U7V"/>
+                            <constraint firstItem="2lg-7O-DSL" firstAttribute="trailing" secondItem="wRv-5s-alR" secondAttribute="trailing" id="efD-kK-tzg"/>
+                            <constraint firstItem="2lg-7O-DSL" firstAttribute="leading" secondItem="wRv-5s-alR" secondAttribute="leading" id="rFn-ku-fDq"/>
+                            <constraint firstItem="2X7-mq-xjU" firstAttribute="top" secondItem="2lg-7O-DSL" secondAttribute="bottom" constant="8" symbolic="YES" id="wuy-3t-7mB"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Rey-TU-1wW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QgG-SD-DkU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2238.9312977099235" y="-838.0281690140846"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -227,11 +304,11 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1984" y="-327"/>
+            <point key="canvasLocation" x="2195" y="-144"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9pm-vL-iiq"/>
+        <segue reference="8gs-61-9Gs"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="GoogleIcon" width="27" height="27"/>

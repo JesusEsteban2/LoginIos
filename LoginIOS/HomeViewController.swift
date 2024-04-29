@@ -8,40 +8,62 @@
 import UIKit
 import FirebaseAuth
 
+
 class HomeViewController: UIViewController {
     
-    @IBOutlet weak var imageProfile: UIBarButtonItem!
-    let imageLoad:UIImageView=UIImageView(image: UIImage(systemName: "person.circle"))
+    @IBOutlet weak var imageProView: UIImageView!
     
+    var usuario:Usuario?=nil
+    var userId:String?
     var isLogin=false
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageProView=redondear(imagen:imageProView)
+        isLogin = (Auth.auth().currentUser != nil)
         
+        if isLogin {
+            Task {
+                print ("Usuario Logado")
+                userId=Auth.auth().currentUser?.uid
+                usuario = await readData(doc:userId!)
+                if (usuario!.imagenPerfil.isEmpty) {
+                    imageProView.image=UIImage(systemName:"person.circle")
+                } else {
+                    imageProView.loadImage(fromURL:usuario!.imagenPerfil)
+                }
+            }
+            
+        }
+                
         //navBarr.rightBarButtonItem?.isEnabled
-        //imageLoad.loadImage(fromURL:"https://www.superherodb.com/pictures2/portraits/10/100/10060.jpg")
-
-        imageProfile.image=imageLoad.image
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        isLogin = (Auth.auth().currentUser != nil)
+        userId=Auth.auth().currentUser?.uid
         
-        if isLogin {
-            // Ir a appcontroler.
-        } else {
-            goToLogin()
+        Task {
+            usuario = await readData(doc:userId!)
+            
+            
+            if isLogin {
+                if ((usuario?.imagenPerfil.isEmpty) != nil) {
+                    imageProView.loadImage(fromURL:usuario!.imagenPerfil)
+                } else {
+                    imageProView.image=UIImage(systemName:"person.circle")
+                }
+                // Seguir con la lógica.
+            } else {
+                goToLogin()
+            }
         }
-        
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        
-        //UserDefaults.standard.set(false, forKey: "IsLogin")
-    }
 
     @IBAction func logOut(_ sender: Any) {
         do {
@@ -56,6 +78,7 @@ class HomeViewController: UIViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         switch segue.identifier {

@@ -26,11 +26,7 @@ class RegisterViewContoller: UIViewController, UIImagePickerControllerDelegate &
         super.viewDidLoad()
         
         // Hacer imagen redonda
-                imagen.layer.borderWidth=1.0
-                imagen.layer.masksToBounds = false
-                imagen.layer.borderColor = UIColor.black.cgColor
-                imagen.layer.cornerRadius = imagen.frame.size.height/2
-                imagen.clipsToBounds = true
+        imagen=redondear(imagen: imagen)
         
         //Tomar id del usuario logado
         userId = Auth.auth().currentUser?.uid
@@ -40,7 +36,7 @@ class RegisterViewContoller: UIViewController, UIImagePickerControllerDelegate &
             usuario = Usuario(idUser: userId!)
             Task {
                 // Recuperar los datos de firebase
-                await usuario = readData(doc:userId!)
+                usuario = await readData(doc:userId!)
                 // Visualizar los datos
                 render()
             }
@@ -115,6 +111,8 @@ class RegisterViewContoller: UIViewController, UIImagePickerControllerDelegate &
             imagen.loadImage(fromURL:usuario!.imagenPerfil)
         }
     }
+    
+    
     
     /*
     // MARK: - Navigation

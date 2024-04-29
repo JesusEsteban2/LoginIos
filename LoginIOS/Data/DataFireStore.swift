@@ -126,5 +126,15 @@ func subirArchivo(image:UIImage, user:Usuario)async->String {
     return urlString
 }
 
+func redondear (imagen:UIImageView)-> UIImageView{
+    
+    imagen.layer.borderWidth=1.0
+    imagen.layer.masksToBounds = false
+    imagen.layer.borderColor = UIColor.black.cgColor
+    imagen.layer.cornerRadius = imagen.frame.size.height/2
+    imagen.clipsToBounds = true
+    
+    return imagen
+}
     
 // https://firebase.google.com/docs/firestore/query-data/get-data?hl=es&authuser=0
