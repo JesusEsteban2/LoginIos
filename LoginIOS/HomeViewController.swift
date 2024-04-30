@@ -21,14 +21,15 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageProView=redondear(imagen:imageProView)
+        imageProView=redondearImagen(imagen:imageProView)
         isLogin = (Auth.auth().currentUser != nil)
         
         if isLogin {
             Task {
                 print ("Usuario Logado")
                 userId=Auth.auth().currentUser?.uid
-                usuario = await readData(doc:userId!)
+                var dialog:Dialog? = await buscarDialog(userId:userId!) ?? nil
+                usuario = await readUser(doc:userId!)
                 if (usuario!.imagenPerfil.isEmpty) {
                     imageProView.image=UIImage(systemName:"person.circle")
                 } else {
@@ -37,6 +38,8 @@ class HomeViewController: UIViewController {
             }
             
         }
+        
+        
                 
         //navBarr.rightBarButtonItem?.isEnabled
         
@@ -48,7 +51,7 @@ class HomeViewController: UIViewController {
         userId=Auth.auth().currentUser?.uid
         
         Task {
-            usuario = await readData(doc:userId!)
+            usuario = await readUser(doc:userId!)
             
             
             if isLogin {

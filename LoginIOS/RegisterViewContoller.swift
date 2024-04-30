@@ -26,7 +26,7 @@ class RegisterViewContoller: UIViewController, UIImagePickerControllerDelegate &
         super.viewDidLoad()
         
         // Hacer imagen redonda
-        imagen=redondear(imagen: imagen)
+        imagen=redondearImagen(imagen: imagen)
         
         //Tomar id del usuario logado
         userId = Auth.auth().currentUser?.uid
@@ -36,7 +36,7 @@ class RegisterViewContoller: UIViewController, UIImagePickerControllerDelegate &
             usuario = Usuario(idUser: userId!)
             Task {
                 // Recuperar los datos de firebase
-                usuario = await readData(doc:userId!)
+                usuario = await readUser(doc:userId!)
                 // Visualizar los datos
                 render()
             }
@@ -65,7 +65,7 @@ class RegisterViewContoller: UIViewController, UIImagePickerControllerDelegate &
         usuario?.imagenPerfil=imagenEdit.text!
         
         // Guardar usuario
-        saveData(doc:userId!,user:usuario!)
+        saveUser(doc:userId!,user:usuario!)
         
         // Volver a HomeView
         self.navigationController?.popToRootViewController(animated: true)

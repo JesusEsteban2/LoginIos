@@ -92,50 +92,102 @@
         <scene sceneID="v3x-oQ-sed">
             <objects>
                 <viewController id="BwK-OZ-2EO" customClass="ChatViewController" customModule="LoginIOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="mt9-mo-L1B">
+                    <view key="view" contentMode="scaleToFill" id="ysU-F5-U6L">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="2lg-7O-DSL">
-                                <rect key="frame" x="0.0" y="103" width="393" height="608"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="361" placeholderIntrinsicHeight="593" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rej-KS-1uH">
+                                <rect key="frame" x="16" y="103" width="361" height="593"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="JFh-v9-Lq0">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ViewCell1" rowHeight="52" id="eZw-XU-r23" customClass="DelegateTableViewCell" customModule="LoginIOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="361" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JFh-v9-Lq0" id="zeW-8z-a27">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eZw-XU-r23" id="aIM-oD-V3l">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="52"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="52" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zvQ-f4-gGq">
+                                                    <rect key="frame" x="5" y="0.0" width="100" height="52"/>
+                                                    <color key="backgroundColor" name="Def"/>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="100" id="5Lq-Zz-6h7"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" priority="250" constant="300" id="qbz-4b-qTt"/>
+                                                    </constraints>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <color key="textColor" systemColor="labelColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                        <mask key="constraints">
+                                                            <include reference="qbz-4b-qTt"/>
+                                                        </mask>
+                                                    </variation>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="zvQ-f4-gGq" firstAttribute="top" secondItem="aIM-oD-V3l" secondAttribute="top" id="jgs-uA-d5l"/>
+                                                <constraint firstItem="zvQ-f4-gGq" firstAttribute="leading" secondItem="aIM-oD-V3l" secondAttribute="leading" constant="5" id="jmz-9v-kb5"/>
+                                                <constraint firstAttribute="bottom" secondItem="zvQ-f4-gGq" secondAttribute="bottom" id="vOv-o7-RaR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ViewCell2" rowHeight="52" id="Rum-or-b3i" customClass="DelegateTableViewCell" customModule="LoginIOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="102" width="361" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rum-or-b3i" id="n6l-KO-HC2">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="52"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="52" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KGY-7S-bcp">
+                                                    <rect key="frame" x="256" y="0.0" width="100" height="52"/>
+                                                    <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="100" id="6Vw-ds-tuE"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" priority="250" constant="300" id="cpU-TD-NfZ"/>
+                                                    </constraints>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <color key="textColor" systemColor="labelColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                        <mask key="constraints">
+                                                            <include reference="cpU-TD-NfZ"/>
+                                                        </mask>
+                                                    </variation>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="KGY-7S-bcp" secondAttribute="trailing" constant="5" id="Kgw-bR-y12"/>
+                                                <constraint firstAttribute="bottom" secondItem="KGY-7S-bcp" secondAttribute="bottom" id="zty-ri-pI3"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" ambiguous="YES" id="2X7-mq-xjU" userLabel="Input View">
-                                <rect key="frame" x="0.0" y="709" width="393" height="94"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="En un lugar de la mancha" translatesAutoresizingMaskIntoConstraints="NO" id="9II-B3-iH8">
-                                        <rect key="frame" x="41" y="21" width="310" height="51"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="grl-ON-Jzp"/>
-                                        </constraints>
-                                        <color key="textColor" systemColor="labelColor"/>
-                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                </subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="500" placeholderIntrinsicWidth="361" placeholderIntrinsicHeight="0.0" text="texto para nuevo mensaje" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="EhM-eo-O6R">
+                                <rect key="frame" x="16" y="745" width="361" height="24"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="24" id="2o9-dj-UXS"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="wRv-5s-alR"/>
+                        <viewLayoutGuide key="safeArea" id="qKG-Yh-kkr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="2lg-7O-DSL" firstAttribute="top" secondItem="wRv-5s-alR" secondAttribute="top" id="HC3-oe-U7V"/>
-                            <constraint firstItem="2lg-7O-DSL" firstAttribute="trailing" secondItem="wRv-5s-alR" secondAttribute="trailing" id="efD-kK-tzg"/>
-                            <constraint firstItem="2lg-7O-DSL" firstAttribute="leading" secondItem="wRv-5s-alR" secondAttribute="leading" id="rFn-ku-fDq"/>
-                            <constraint firstItem="2X7-mq-xjU" firstAttribute="top" secondItem="2lg-7O-DSL" secondAttribute="bottom" constant="8" symbolic="YES" id="wuy-3t-7mB"/>
+                            <constraint firstItem="qKG-Yh-kkr" firstAttribute="trailing" secondItem="EhM-eo-O6R" secondAttribute="trailing" constant="16" id="1CR-fr-X3r"/>
+                            <constraint firstItem="EhM-eo-O6R" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Rej-KS-1uH" secondAttribute="bottom" constant="5" id="5lg-1e-AwR"/>
+                            <constraint firstItem="Rej-KS-1uH" firstAttribute="leading" secondItem="qKG-Yh-kkr" secondAttribute="leading" constant="16" id="75e-98-dLT"/>
+                            <constraint firstItem="EhM-eo-O6R" firstAttribute="leading" secondItem="qKG-Yh-kkr" secondAttribute="leading" constant="16" id="K4S-yu-H6R"/>
+                            <constraint firstItem="Rej-KS-1uH" firstAttribute="top" secondItem="qKG-Yh-kkr" secondAttribute="top" id="fVi-6G-l3q"/>
+                            <constraint firstItem="EhM-eo-O6R" firstAttribute="bottom" secondItem="qKG-Yh-kkr" secondAttribute="bottom" id="vf5-u8-8KK"/>
+                            <constraint firstItem="qKG-Yh-kkr" firstAttribute="trailing" secondItem="Rej-KS-1uH" secondAttribute="trailing" constant="16" id="xcz-LQ-Yfn"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Rey-TU-1wW"/>
@@ -322,6 +374,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

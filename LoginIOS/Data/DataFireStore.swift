@@ -19,8 +19,8 @@ import FirebaseStorage
 
 let db = Firestore.firestore()
 
-let coleccion="usuarios"
-
+let coleccionUsuarios="usuarios"
+let coleccionDialogos="dialogos"
 
 
 struct Usuario: Codable {
@@ -35,26 +35,95 @@ struct Usuario: Codable {
         apellidos=""
         imagenPerfil=""
     }
+    
+    // Para crear o sobrescribir un solo documento, utilice los siguientes métodos set() específicos del idioma:
+    //
+
+    
+
 }
 
-// Para crear o sobrescribir un solo documento, utilice los siguientes métodos set() específicos del idioma:
-//
-func saveData(doc:String,user:Usuario) {
+struct Dialog:Codable {
+    var dialogId:String
+    var titulo:String
+    var usuarios:[String]
+    var conversacion:String
+}
+
+struct Mensaje:Codable {
+    var mensajeId:String
+    var fecha:Date
+    var remitente:String
+    var texto:String
+}
+
+
+
+
+
+func delData(doc:String) {
     
-    Task{
+    Task {
         do {
-            try await db.collection(coleccion).document(doc).setData(from: user)
-            print("Document successfully written!")
+            try await db.collection(coleccionUsuarios).document(doc).delete()
+            print("Document successfully removed!")
         } catch {
-            print("Error writing document: \(error)")
+            print("Error removing document: \(error)")
         }
     }
-    
 }
 
-func readData(doc:String) async->Usuario? {
+func readDialog(doc:String) async->Dialog? {
     
-    let docRef = db.collection(coleccion).document(doc)
+    let docRef = db.collection(coleccionDialogos).document(doc)
+    var dialog:Dialog?=nil
+    do {
+        let document = try await docRef.getDocument()
+        if document.exists {
+            dialog = try document.data(as:Dialog.self)
+            print("Cargado data: \(dialog?.titulo)")
+        } else {
+            print("Document does not exist")
+        }
+    } catch {
+        print("Error getting document: \(error)")
+    }
+    return dialog
+}
+
+func buscarDialog(userId:String) async->Dialog? {
+     
+    do {let dialogos = try await db.collection(coleccionDialogos).whereField(userId, in:["usuarios"]).getDocuments()
+        print ("Se ha encontrado conversación: \(dialogos.count)")
+        for dialog in dialogos.documents {
+            
+            print ("encontrado conversacion: \(dialog)")
+        }
+        // let docRef = db.collection(coleccionDialogos).document(dialogos[0])
+    }
+    catch {
+        
+    }
+    /**
+    var dialog:Dialog?=nil
+    do {
+        let document = try await docRef.getDocument()
+        if document.exists {
+            dialog = try document.data(as:Dialog.self)
+            print("Cargado data: \(dialog?.titulo)")
+        } else {
+            print("Document does not exist")
+        }
+    } catch {
+        print("Error getting document: \(error)")
+    }
+     */
+    return nil
+}
+
+func readUser(doc:String) async->Usuario? {
+    
+    let docRef = db.collection(coleccionUsuarios).document(doc)
     var usuario:Usuario?=nil
     do {
         let document = try await docRef.getDocument()
@@ -70,16 +139,17 @@ func readData(doc:String) async->Usuario? {
     return usuario
 }
 
-func delData(doc:String) {
+func saveUser(doc:String,user:Usuario) {
     
-    Task {
+    Task{
         do {
-            try await db.collection(coleccion).document(doc).delete()
-            print("Document successfully removed!")
+            try await db.collection(coleccionUsuarios).document(doc).setData(from: user)
+            print("Document successfully written!")
         } catch {
-            print("Error removing document: \(error)")
+            print("Error writing document: \(error)")
         }
     }
+    
 }
 
 func subirArchivo(image:UIImage, user:Usuario)async->String {
@@ -126,7 +196,7 @@ func subirArchivo(image:UIImage, user:Usuario)async->String {
     return urlString
 }
 
-func redondear (imagen:UIImageView)-> UIImageView{
+func redondearImagen (imagen:UIImageView)-> UIImageView{
     
     imagen.layer.borderWidth=1.0
     imagen.layer.masksToBounds = false

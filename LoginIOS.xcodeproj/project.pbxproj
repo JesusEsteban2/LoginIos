@@ -19,6 +19,7 @@
 		6CB8E3642BD0FE5300619967 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CB8E3632BD0FE5300619967 /* Assets.xcassets */; };
 		6CB8E3672BD0FE5300619967 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 6CB8E3662BD0FE5300619967 /* Base */; };
 		6CBBEFA62BD2797700FB96EA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CBBEFA52BD2797600FB96EA /* GoogleService-Info.plist */; };
+		6CBDC0A82BE0DD5A007C7E3C /* DelegateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBDC0A72BE0DD5A007C7E3C /* DelegateTableViewCell.swift */; };
 		6CC8863C2BDF9E980065A9CF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8863B2BDF9E980065A9CF /* ChatViewController.swift */; };
 		6CC8863E2BDFA2BD0065A9CF /* Notas.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6CC8863D2BDFA2BD0065A9CF /* Notas.rtf */; };
 /* End PBXBuildFile section */
@@ -37,6 +38,7 @@
 		6CB8E3662BD0FE5300619967 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CB8E3682BD0FE5300619967 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CBBEFA52BD2797600FB96EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6CBDC0A72BE0DD5A007C7E3C /* DelegateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateTableViewCell.swift; sourceTree = "<group>"; };
 		6CC8863B2BDF9E980065A9CF /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		6CC8863D2BDFA2BD0065A9CF /* Notas.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notas.rtf; sourceTree = "<group>"; };
 		76C52928F74D40A381930621 /* Pods-LoginIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoginIOS.debug.xcconfig"; path = "Target Support Files/Pods-LoginIOS/Pods-LoginIOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				6CB8E3632BD0FE5300619967 /* Assets.xcassets */,
 				6CB8E3652BD0FE5300619967 /* LaunchScreen.storyboard */,
 				6CB8E3682BD0FE5300619967 /* Info.plist */,
+				6CBDC0A72BE0DD5A007C7E3C /* DelegateTableViewCell.swift */,
 			);
 			path = LoginIOS;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				6CACD3352BDA62A400BC65D8 /* LoadImageDelegate.swift in Sources */,
 				6CACE11E2BD7BB7E00538EAD /* DataFireStore.swift in Sources */,
 				6CB8E35D2BD0FE5200619967 /* SceneDelegate.swift in Sources */,
+				6CBDC0A82BE0DD5A007C7E3C /* DelegateTableViewCell.swift in Sources */,
 				6C33F3312BD1281600860F03 /* RegisterViewContoller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

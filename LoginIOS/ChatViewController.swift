@@ -9,6 +9,8 @@ import UIKit
 
 class ChatViewController: UIViewController {
 
+    var conversacion:Dialog?=nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
