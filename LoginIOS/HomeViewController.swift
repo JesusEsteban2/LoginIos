@@ -2,21 +2,22 @@
 //  HomeViewController.swift
 //  LoginIOS
 //
-//  Created by Mañanas on 23/4/24.
+//  Created by Jesus on 23/4/24.
 //
 
 import UIKit
 import FirebaseAuth
 
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController,UITableViewDataSource {
     
     @IBOutlet weak var imageProView: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
     
+    var dialogos:[Dialog] = []
     var usuario:Usuario?=nil
     var userId:String?
     var isLogin=false
-    
     
     
     override func viewDidLoad() {
@@ -24,23 +25,7 @@ class HomeViewController: UIViewController {
         imageProView=redondearImagen(imagen:imageProView)
         isLogin = (Auth.auth().currentUser != nil)
         
-        if isLogin {
-            Task {
-                print ("Usuario Logado")
-                userId=Auth.auth().currentUser?.uid
-                var dialog:Dialog? = await buscarDialog(userId:userId!) ?? nil
-                usuario = await readUser(doc:userId!)
-                if (usuario!.imagenPerfil.isEmpty) {
-                    imageProView.image=UIImage(systemName:"person.circle")
-                } else {
-                    imageProView.loadImage(fromURL:usuario!.imagenPerfil)
-                }
-            }
-            
-        }
-        
-        
-                
+        self.tableView.dataSource=self
         //navBarr.rightBarButtonItem?.isEnabled
         
     }
@@ -48,26 +33,39 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        userId=Auth.auth().currentUser?.uid
-        
-        Task {
-            usuario = await readUser(doc:userId!)
-            
-            
-            if isLogin {
-                if ((usuario?.imagenPerfil.isEmpty) != nil) {
-                    imageProView.loadImage(fromURL:usuario!.imagenPerfil)
-                } else {
+        // Si el usuario esta logado.
+        if isLogin {
+            Task {
+                print ("Usuario Logado")
+                // Recuperar el user Id
+                userId=Auth.auth().currentUser?.uid
+                // Recuperar los datos para user id
+                usuario = await readUser(doc:userId!)
+                // Cargar la imagen de perfil del usuario o la imagen por defecto.
+                if (usuario!.imagenPerfil.isEmpty) {
                     imageProView.image=UIImage(systemName:"person.circle")
+                } else {
+                        imageProView.loadImage(fromURL:usuario!.imagenPerfil)
                 }
-                // Seguir con la lógica.
-            } else {
-                goToLogin()
+                // Buscar conversaciones abiertas para el usuario Id
+                dialogos = try await buscarDialog(userId:userId!)
+                tableView.reloadData()
+                print ("Conversaciones encontradas: \(dialogos.count)")
+                // Falta visualizar las conversaciones disponibles
             }
+            // Seguir con la lógica.
+            
+        } else {
+            // Si el usuario no está logado ir a pantalla de loguin.
+            goToLogin()
         }
+        
+        
     }
     
-
+    /**
+     Función de Logout del perfil actual llevará obligatoriamente a pantalla de loguin
+     */
     @IBAction func logOut(_ sender: Any) {
         do {
             try Auth.auth().signOut()
@@ -78,10 +76,29 @@ class HomeViewController: UIViewController {
         }
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return dialogos.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell:ConversationsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for:indexPath) as! ConversationsTableViewCell
+               
+        let fila = dialogos[indexPath.row]
+           
+        cell.render(tit:fila.titulo)
+               
+        return cell
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     
+    /**
+     segues para navegación entre pantallas.
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         switch segue.identifier {
@@ -92,6 +109,9 @@ class HomeViewController: UIViewController {
         }
     }
     
+    /**
+        Ir a Pantalla de Loguin
+     */
     func goToLogin(){
             
             performSegue(withIdentifier: "goToLogin", sender: self)

@@ -17,6 +17,13 @@ import FirebaseStorage
 // Instanciar de Cloud Firestore
 // FirebaseApp.configure()
 
+enum Errores: Error {
+    case errorRecuperandoURL (urlString:String)
+    case errorSubiendoImagen (urlString:String)
+    case noSePuedeConvertir
+    case noSePuedeAccederFireBase
+}
+
 let db = Firestore.firestore()
 
 let coleccionUsuarios="usuarios"
@@ -73,7 +80,7 @@ func delData(doc:String) {
     }
 }
 
-func readDialog(doc:String) async->Dialog? {
+func readMensajes(doc:String) async->Dialog? {
     
     let docRef = db.collection(coleccionDialogos).document(doc)
     var dialog:Dialog?=nil
@@ -81,7 +88,7 @@ func readDialog(doc:String) async->Dialog? {
         let document = try await docRef.getDocument()
         if document.exists {
             dialog = try document.data(as:Dialog.self)
-            print("Cargado data: \(dialog?.titulo)")
+            print("Cargado data: \(dialog!.titulo)")
         } else {
             print("Document does not exist")
         }
@@ -91,34 +98,27 @@ func readDialog(doc:String) async->Dialog? {
     return dialog
 }
 
-func buscarDialog(userId:String) async->Dialog? {
-     
-    do {let dialogos = try await db.collection(coleccionDialogos).whereField(userId, in:["usuarios"]).getDocuments()
-        print ("Se ha encontrado conversación: \(dialogos.count)")
-        for dialog in dialogos.documents {
-            
-            print ("encontrado conversacion: \(dialog)")
+/**
+ Buscar conversaciones para un id de usuario
+ */
+func buscarDialog(userId:String) async throws -> [Dialog] {
+    var dialogos:[Dialog]=[]
+    
+    // Recuperar conversaciones para el Id de usuario.
+    let querySnapshot = try await db.collection(coleccionDialogos).whereField("usuarios", arrayContains: userId).getDocuments()
+    
+    // para cada conversacion crear un dialogo y añadir al array a retornar.
+    for document in querySnapshot.documents {
+        do {
+            let dialogo=try document.data(as: Dialog.self)
+            dialogos.append(dialogo)
         }
-        // let docRef = db.collection(coleccionDialogos).document(dialogos[0])
-    }
-    catch {
-        
-    }
-    /**
-    var dialog:Dialog?=nil
-    do {
-        let document = try await docRef.getDocument()
-        if document.exists {
-            dialog = try document.data(as:Dialog.self)
-            print("Cargado data: \(dialog?.titulo)")
-        } else {
-            print("Document does not exist")
+        catch{
+            throw Errores.noSePuedeAccederFireBase
         }
-    } catch {
-        print("Error getting document: \(error)")
     }
-     */
-    return nil
+
+    return dialogos
 }
 
 func readUser(doc:String) async->Usuario? {
@@ -152,7 +152,7 @@ func saveUser(doc:String,user:Usuario) {
     
 }
 
-func subirArchivo(image:UIImage, user:Usuario)async->String {
+func subirArchivo(image:UIImage, user:Usuario) async throws ->String {
     var urlString:String=""
     //Obtenga una referencia al servicio Cloud Storage mediante la aplicación Firebase predeterminada
     let storage = Storage.storage()
@@ -180,7 +180,7 @@ func subirArchivo(image:UIImage, user:Usuario)async->String {
     // Upload the file to the path "images/rivers.jpg"
     let uploadTask = imageProfileRef.putData( image.jpegData(compressionQuality: 0.7)!) { metadata, error in
         guard let metadata = metadata else {
-            print ("Error subiendo la imagen")
+            print ("Error subiendo archivo")
             return
         }
     }
@@ -190,7 +190,7 @@ func subirArchivo(image:UIImage, user:Usuario)async->String {
         
     do {try await urlString=imageProfileRef.downloadURL().absoluteString}
     catch {
-        print ("error recuperando URL")
+        throw Errores.errorRecuperandoURL(urlString: urlString)
     }
 
     return urlString
