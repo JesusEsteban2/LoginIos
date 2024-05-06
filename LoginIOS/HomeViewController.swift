@@ -110,6 +110,7 @@ class HomeViewController: UIViewController,UITableViewDataSource {
             let fila=tableView.indexPathForSelectedRow
             print ("La fila seleccionada es: \(fila!.row)")
             destinationViewControler.conversacionParam=dialogos[fila!.row]
+            destinationViewControler.userIdParam=userId!
         default:
             return
         }

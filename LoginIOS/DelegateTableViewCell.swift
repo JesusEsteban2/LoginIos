@@ -9,6 +9,11 @@ import UIKit
 
 class DelegateTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var vc1Texto: UITextView!
+    @IBOutlet weak var vc1Fecha: UILabel!
+    @IBOutlet weak var vc2Texto: UITextView!
+    @IBOutlet weak var vc2Fecha: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,15 +25,15 @@ class DelegateTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    
-    
-    func render (ima:String,tit:String,pow:Int,spee:Int,intel:Int){
-        //superImagen.loadImage(fromURL: ima)
-        //superImagen.load(url: URL(string:ima)!)
-        //nombre.text=tit
-        //power.progress=Float(pow)/100
-        //speed.progress=Float(spee)/100
-        //intelig.progress=Float(intel)/100
+    func render (tipo:Int,userId:String,texto:String,fecha:Date){
+        if tipo==1 {
+            vc1Texto.text=texto
+            vc1Fecha.text=fecha.ISO8601Format()
+        } else {
+            vc2Texto.text=texto
+            vc2Fecha.text=fecha.ISO8601Format()
+        }
+        
     }
 }
 

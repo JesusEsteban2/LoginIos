@@ -12,6 +12,7 @@ class ChatViewController: UIViewController,UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
     var conversacionParam:Dialog?=nil
+    var userIdParam:String=""
     var mensajes:[Mensaje]=[]
     
     override func viewDidLoad() {
@@ -29,7 +30,7 @@ class ChatViewController: UIViewController,UITableViewDataSource {
                 let conve=conversacionParam!.conversacion
                 mensajes=try await readMensajes(doc:doc,conve:conve)
                 if !(mensajes.isEmpty) {
-                    //Todo logica
+                    print ("Mensaje ")
                     tableView.reloadData()
                 } else {
                     print ("La lista de mensajes está vacía")
@@ -44,6 +45,20 @@ class ChatViewController: UIViewController,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        
+        let cell1:DelegateTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ViewCell1", for:indexPath) as! DelegateTableViewCell
+        
+        let cell2:DelegateTableViewCell=tableView.dequeueReusableCell(withIdentifier: "ViewCell2", for: indexPath) as! DelegateTableViewCell
+        
+        let fila = mensajes[indexPath.row]
+        
+        if (fila.remitente==userIdParam) {
+            cell2.render(tipo:2,userId: fila.remitente, texto: fila.texto, fecha: fila.fecha)
+            return cell2
+        } else {
+            cell1.render(tipo:1,userId: fila.remitente, texto: fila.texto, fecha: fila.fecha)
+            return cell1
+        }
+      
     }
 }

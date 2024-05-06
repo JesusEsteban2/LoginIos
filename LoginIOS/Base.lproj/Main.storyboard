@@ -159,6 +159,14 @@
                                                         </mask>
                                                     </variation>
                                                 </textView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wf0-Z4-BuE">
+                                                    <rect key="frame" x="105" y="0.0" width="168" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" name="Def"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="zvQ-f4-gGq" firstAttribute="top" secondItem="aIM-oD-V3l" secondAttribute="top" id="jgs-uA-d5l"/>
@@ -166,6 +174,10 @@
                                                 <constraint firstAttribute="bottom" secondItem="zvQ-f4-gGq" secondAttribute="bottom" id="vOv-o7-RaR"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="vc1Fecha" destination="Wf0-Z4-BuE" id="FGw-Dw-1cR"/>
+                                            <outlet property="vc1Texto" destination="zvQ-f4-gGq" id="kiQ-Zw-XSr"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ViewCell2" rowHeight="52" id="Rum-or-b3i" customClass="DelegateTableViewCell" customModule="LoginIOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="102" width="361" height="52"/>
@@ -192,12 +204,24 @@
                                                         </mask>
                                                     </variation>
                                                 </textView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z35-V0-62X">
+                                                    <rect key="frame" x="89" y="0.0" width="168" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="KGY-7S-bcp" secondAttribute="trailing" constant="5" id="Kgw-bR-y12"/>
                                                 <constraint firstAttribute="bottom" secondItem="KGY-7S-bcp" secondAttribute="bottom" id="zty-ri-pI3"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="vc2Fecha" destination="Z35-V0-62X" id="cjU-Vk-XHk"/>
+                                            <outlet property="vc2Texto" destination="KGY-7S-bcp" id="GRb-BW-yvu"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
