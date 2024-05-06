@@ -23,7 +23,7 @@ class HomeViewController: UIViewController,UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         imageProView=redondearImagen(imagen:imageProView)
-        isLogin = (Auth.auth().currentUser != nil)
+        
         
         self.tableView.dataSource=self
         //navBarr.rightBarButtonItem?.isEnabled
@@ -33,6 +33,7 @@ class HomeViewController: UIViewController,UITableViewDataSource {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        isLogin = (Auth.auth().currentUser != nil)
         // Si el usuario esta logado.
         if isLogin {
             Task {
@@ -104,6 +105,11 @@ class HomeViewController: UIViewController,UITableViewDataSource {
         switch segue.identifier {
         case "goToLogin":
             let destinationViewControler=segue.destination as! LoginViewController
+        case "goToChat":
+            let destinationViewControler=segue.destination as! ChatViewController
+            let fila=tableView.indexPathForSelectedRow
+            print ("La fila seleccionada es: \(fila!.row)")
+            destinationViewControler.conversacionParam=dialogos[fila!.row]
         default:
             return
         }
@@ -114,8 +120,8 @@ class HomeViewController: UIViewController,UITableViewDataSource {
      */
     func goToLogin(){
             
-            performSegue(withIdentifier: "goToLogin", sender: self)
-        }
+        performSegue(withIdentifier: "goToLogin", sender: self)
+    }
 
 }
 

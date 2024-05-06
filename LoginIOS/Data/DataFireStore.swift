@@ -42,11 +42,6 @@ struct Usuario: Codable {
         apellidos=""
         imagenPerfil=""
     }
-    
-    // Para crear o sobrescribir un solo documento, utilice los siguientes métodos set() específicos del idioma:
-    //
-
-    
 
 }
 
@@ -80,22 +75,28 @@ func delData(doc:String) {
     }
 }
 
-func readMensajes(doc:String) async->Dialog? {
+func readMensajes(doc:String,conve:String) async throws ->[Mensaje] {
     
-    let docRef = db.collection(coleccionDialogos).document(doc)
-    var dialog:Dialog?=nil
-    do {
-        let document = try await docRef.getDocument()
-        if document.exists {
-            dialog = try document.data(as:Dialog.self)
-            print("Cargado data: \(dialog!.titulo)")
-        } else {
-            print("Document does not exist")
+    var mensajes:[Mensaje]=[]
+    
+        let text="/"+coleccionDialogos+"/"+doc+"/"+conve
+        // "/dialogos/aaDWdoAso7Q16mh5dOhV/8OkuNKNp2nyJL8zRJoKk"
+        do {
+            let docRef = try await db.collection(text).getDocuments()
+            // Expresión alternativa
+            //db.collection(coleccionDialogos).document(doc).collection(text).getDocuments()
+            
+            print ("Mensajes para: \(text)")
+            print ("Numero de doc: \(docRef.count)")
+            
+            for doc in docRef.documents {
+                let mensaje = try doc.data(as: Mensaje.self)
+                print ("Encontrado Mensaje: \(mensaje.texto)")
+                mensajes.append(mensaje)
+            }
         }
-    } catch {
-        print("Error getting document: \(error)")
-    }
-    return dialog
+    
+    return mensajes
 }
 
 /**

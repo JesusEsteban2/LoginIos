@@ -47,16 +47,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="361" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shj-bb-OBs">
-                                                    <rect key="frame" x="298" y="3" width="54" height="35"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="tinted" image="arrowshape.right.circle.fill" catalog="system"/>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iY-rT-v5f">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iY-rT-v5f">
                                                     <rect key="frame" x="12" y="3" width="286" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" name="Def"/>
+                                                    <color key="backgroundColor" red="0.83529412749999998" green="0.90196079019999997" blue="0.99215686319999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -65,6 +59,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="titleConversation" destination="6iY-rT-v5f" id="aim-WB-qAy"/>
+                                            <segue destination="BwK-OZ-2EO" kind="show" identifier="goToChat" id="2J4-3j-ukp"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -84,11 +79,7 @@
                         <centerItemGroups>
                             <barButtonItemGroup customizationDisposition="fixed" id="cmK-bZ-5eP">
                                 <barButtonItems>
-                                    <barButtonItem title="Item" id="Grj-xa-zNv" userLabel="Mensajes">
-                                        <connections>
-                                            <segue destination="BwK-OZ-2EO" kind="show" id="gFa-Dm-F9a"/>
-                                        </connections>
-                                    </barButtonItem>
+                                    <barButtonItem title="Item" id="Grj-xa-zNv" userLabel="Mensajes"/>
                                     <barButtonItem title="Logout" id="8R4-Oa-Hkx">
                                         <connections>
                                             <action selector="logOut:" destination="eLQ-N0-53C" id="x9k-mQ-MKj"/>
@@ -234,6 +225,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Rey-TU-1wW"/>
+                    <connections>
+                        <outlet property="tableView" destination="Rej-KS-1uH" id="she-qf-Ohw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QgG-SD-DkU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -408,8 +402,7 @@
     <resources>
         <image name="GoogleIcon" width="27" height="27"/>
         <image name="ImageFirebase" width="314" height="94"/>
-        <image name="arrowshape.right.circle.fill" catalog="system" width="128" height="123"/>
-        <image name="questionmark.square.dashed" catalog="system" width="32" height="32"/>
+        <image name="questionmark.square.dashed" catalog="system" width="128" height="114"/>
         <namedColor name="Def">
             <color red="0.53700000047683716" green="0.79199999570846558" blue="0.97200000286102295" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
