@@ -19,6 +19,8 @@ class ChatViewController: UIViewController,UITableViewDataSource {
         super.viewDidLoad()
         
         tableView.dataSource=self
+        tableView.estimatedRowHeight = 70
+        tableView.rowHeight = UITableView.automaticDimension
         
         if (conversacionParam == nil) {
             print ("No existe conversación.")

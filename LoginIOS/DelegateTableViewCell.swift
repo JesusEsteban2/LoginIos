@@ -9,12 +9,10 @@ import UIKit
 
 class DelegateTableViewCell: UITableViewCell {
 
-
-    @IBOutlet weak var vc1Fecha: UILabel!
-    @IBOutlet weak var cv1Texto: UILabel!
-    @IBOutlet weak var vc2Fecha: UILabel!
-    @IBOutlet weak var vc2Texto: UILabel!
     
+
+    @IBOutlet weak var vc1Texto: UILabel!
+    @IBOutlet weak var vc1Fecha: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,15 +27,14 @@ class DelegateTableViewCell: UITableViewCell {
     
     func render (tipo:Int,userId:String,texto:String,fecha:Date){
         
-        if tipo==1 {
-            print ("celda 1")
-            cv1Texto.text=texto
-            vc1Fecha.text=fecha.ISO8601Format()
-        }
+        vc1Texto.text=texto
         
-        print ("celda 2")
-        vc2Texto.text=texto
-        vc2Fecha.text=fecha.ISO8601Format()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy hh:mm"
+
+        let formattedDate = dateFormatter.string(from: fecha)
+        
+        vc1Fecha.text=formattedDate
         
     }
 }

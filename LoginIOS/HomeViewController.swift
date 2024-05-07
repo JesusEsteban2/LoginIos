@@ -25,7 +25,9 @@ class HomeViewController: UIViewController,UITableViewDataSource {
         imageProView=redondearImagen(imagen:imageProView)
         
         
-        self.tableView.dataSource=self
+        tableView.dataSource=self
+        tableView.estimatedRowHeight = 44
+        tableView.rowHeight = UITableView.automaticDimension
         //navBarr.rightBarButtonItem?.isEnabled
         
     }
@@ -87,7 +89,7 @@ class HomeViewController: UIViewController,UITableViewDataSource {
         let cell:ConversationsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for:indexPath) as! ConversationsTableViewCell
                
         let fila = dialogos[indexPath.row]
-           
+        
         cell.render(tit:fila.titulo)
                
         return cell
